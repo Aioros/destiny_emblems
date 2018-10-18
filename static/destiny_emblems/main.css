@@ -1,0 +1,180 @@
+@font-face {
+	font-family: 'NHaasGrotesk';
+	src:
+		url('fonts/NHaasGroteskTXPro-55Rg.ttf')
+		format('truetype');
+}
+/*medium version*/
+@font-face {
+	font-family: 'NHaasGrotesk';
+	src:
+		url('fonts/NHaasGroteskTXPro-65Md.ttf')
+		format('truetype');
+	font-weight: 600;
+}
+/*bold version*/
+@font-face {
+	font-family: 'NHaasGrotesk';
+	src:
+		url('fonts/NHaasGroteskTXPro-75Bd.ttf')
+		format('truetype');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: 'FontBungle';
+	src:
+		url('fonts/fontbungle.woff')
+		format('woff');
+}
+
+body {
+    font-family: 'NHaasGrotesk', sans-serif;
+    font-size: 14px;
+}
+
+.hidden {
+    display: none;
+}
+
+.emblem.disabled img {
+    filter: brightness(15%);
+}
+
+.emblem-objective, .emblem-objectives, .emblem-variants {
+    display: none;
+}
+
+#emblems {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.emblem {
+    margin: 5px;
+    width: 80px;
+}
+
+.emblem .emblem-icon img {
+    width: 100%;
+}
+
+#emblem_tooltip {
+    position: absolute;
+    background-color: #251e26;
+    color: #ddd;
+    max-width: 400px;
+    opacity: 0.98;
+}
+
+#emblem_tooltip_header {
+    padding: 8px 10px 14px;
+    height: 45px;
+}
+
+#emblem_tooltip_header.common {
+    background-color: #c3bcb4;
+    color: black;
+}
+#emblem_tooltip_header.uncommon {
+    background-color: #366f42;
+}
+#emblem_tooltip_header.rare {
+    background-color: #5076a3;
+}
+#emblem_tooltip_header.legendary {
+    background-color: #522f65;
+}
+
+#emblem_tooltip_name {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0;
+}
+
+#emblem_tooltip_subtitle {
+    font-weight: normal;
+    float: left;
+    margin: 0;
+}
+
+#emblem_tooltip_tier {
+    text-transform: capitalize;
+    font-weight: normal;
+    float: right;
+    margin: 0;
+    opacity: 0.3;
+}
+.common #emblem_tooltip_tier {
+    display: none;
+}
+
+#emblem_tooltip_tag {
+    padding: 10px;
+    position: relative;
+}
+
+#emblem_tooltip_icon {
+    display: block;
+    width: 100%;
+}
+
+#emblem_tooltip_player, #emblem_tooltip_power,
+#emblem_tooltip_clan, #emblem_tooltip_objective_small {
+    position: absolute;
+}
+
+#emblem_tooltip_player {
+    top: 16px;
+    left: 80px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+#emblem_tooltip_power {
+    top: 14px;
+    right: 20px;
+    font-size: 28px;
+    color: #4fdcc4;
+}
+
+#emblem_tooltip_ghost {
+    font-family: FontBungle;
+    font-size: 10px;
+    position: relative;
+    bottom: 10px;
+    right: 2px;
+}
+
+#emblem_tooltip_clan {
+    bottom: 32px;
+    left: 80px;
+    font-size: 15px;
+    opacity: 0.5;
+}
+
+#emblem_tooltip_objective_small {
+    bottom: 32px;
+    right: 20px;
+    font-size: 15px;
+}
+
+#emblem_tooltip_progressbar {
+    position: absolute;
+    height: 8px;
+    margin: 4px;
+    bottom: 10px;
+    width: 372px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#emblem_tooltip_progression {
+    background-color: #5c9062;
+    height: 100%;
+}
+
+#emblem_tooltip_objective {
+    font-size: 16px;
+    padding: 5px 20px 16px;
+}

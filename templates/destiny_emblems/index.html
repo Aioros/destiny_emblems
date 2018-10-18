@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Destiny Emblems</title>
+    <meta name="description" content="See and showcase your Destiny 2 emblems">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div>User: {{request.session.destiny_user.items}}</div>
+{% if request.session.destiny_user %}
+    <a href="{% url 'destiny_emblems:logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'destiny_emblems:auth' %}">Login</a>
+{% endif %}
+<form>
+    <input type="text" name="player_id" />
+</form>
+<ul class="emblems">
+    {% for hash, emblem in emblems.items %}
+        <li class="emblem emblem-{{hash}}">
+            <img class="emblem-icon" src="https://www.bungie.net{{emblem.icon}}" />
+            <span class="emblem-index">{{emblem.index}}</span>
+            <span class="emblem-name">{{emblem.name}}</span>
+            {% if emblem.main_objective %}
+                <span class="emblem-objective main objective-{{emblem.main_objective.pk}}">Main objective: {{emblem.main_objective}}</span>
+            {% endif %}
+            <ul class="sub-objectives">
+                {% for objective in emblem.sub_objectives %}
+                    <li class="emblem-objective sub objective-{{objective.pk}}">Sub objective: {{objective}}</li>
+                {% endfor %}
+            </ul>
+            <ul class="variants">
+                {% for variant_hash, variant_emblem in emblem.variants.items %}
+                    <li class="emblem variant">
+                        <img class="emblem-icon" src="https://www.bungie.net{{variant_emblem.icon}}" />
+                        <span class="emblem-name">{{ variant_emblem.name }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>

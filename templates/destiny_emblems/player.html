@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Destiny Emblems</title>
+    <meta name="description" content="See and showcase your Destiny 2 emblems">
+    <link rel="stylesheet" href="{% static 'destiny_emblems/main.css' %}">
+</head>
+<body>
+<div>User: {{request.session.destiny_user.items}}</div>
+<div>PlayerObj: {{player_obj.player_data}}</div>
+<div>Debug: {{debug}}</div>
+{% if request.session.destiny_user %}
+    <a href="{% url 'destiny_emblems:logout' %}">Logout</a>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="player_data" id="player_data" />
+        <input type="button" name="save" id="save" value="Save" />
+    </form>
+{% else %}
+    <a href="{% url 'destiny_emblems:auth' %}">Login</a>
+{% endif %}
+<div id="emblems" class="emblems">
+    {% for hash, emblem in emblems.items %}
+        <div title="{{emblem.name}}"
+                class="emblem emblem-{{hash}}{% if emblem.available %} enabled{% else %} disabled{% endif %}"
+                data-tier="{{emblem.tier}}"
+                data-icon="https://www.bungie.net{{emblem.secondary_icon}}"
+                data-main-objective="{% firstof emblem.description emblem.main_objective %}"
+                data-main-progress="{{emblem.progress}}">
+            <div class="emblem-icon">
+                <img class="emblem-icon-img" src="https://www.bungie.net{{emblem.icon}}" />
+            </div>
+            <!--span class="emblem-index">{{emblem.index}}</span-->
+            <!--span class="emblem-name">{{emblem.name}}</span-->
+            {% if emblem.main_objective %}
+                <div class="emblem-objective">
+                    <span class="emblem-objective main objective-{{emblem.main_objective.pk}}">Main objective: {{emblem.main_objective}}</span>
+                    <span class="progress">Progress: {{emblem.progress}}</span>
+                </div>
+            {% endif %}
+            {% if emblem.sub_objectives %}
+            <div class="emblem-objectives">
+                <ul>
+                {% for objective in emblem.sub_objectives %}
+                    <li class="emblem-objective sub objective-{{objective.pk}}">Sub objective: {{objective}}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            <div class="emblem-variants">
+                {% for variant_hash, variant_emblem in emblem.variants.items %}
+                    <div title="{{variant_emblem.name}}" class="emblem variant">
+                        <img class="emblem-icon" src="https://www.bungie.net{{variant_emblem.icon}}" />
+                        <!--span class="emblem-name">{{ variant_emblem.name }}</span-->
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div id="emblem_tooltip" class="hidden">
+    <div id="emblem_tooltip_header">
+        <h2 id="emblem_tooltip_name"></h2>
+        <h3 id="emblem_tooltip_subtitle">Emblem</h3>
+        <h3 id="emblem_tooltip_tier"></h3>
+    </div>
+    <div id="emblem_tooltip_tag">
+        <div id="emblem_tooltip_icon_container"><img id="emblem_tooltip_icon" /></div>
+        <span id="emblem_tooltip_player">{{player_info.player_id}}</span>
+        <span id="emblem_tooltip_power"><span id="emblem_tooltip_ghost"></span>{{player_info.active_character.light}}</span>
+        <span id="emblem_tooltip_clan">{{player_info.clan_name}}</span>
+        <span id="emblem_tooltip_objective_small" data-level="{{player_info.active_character.baseCharacterLevel}}"></span>
+        <div id="emblem_tooltip_progressbar">
+            <div id="emblem_tooltip_progression" style="width: {{player_info.active_character.percentToNextLevel}}%"></div>
+        </div>
+    </div>
+    <div id="emblem_tooltip_objective" class="hidden"></div>
+</div>
+<script src="{% static 'destiny_emblems/main.js' %}"></script>
+</body>
+</html>

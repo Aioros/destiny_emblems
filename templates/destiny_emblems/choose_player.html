@@ -1,0 +1,5 @@
+Which one?
+
+{% for p in players %}
+<a href="{% url 'destiny_emblems:player' p.membershipType p.displayName %}">{{p.membershipType}} - {{p.displayName}}</a>
+{% endfor %}
