@@ -8,8 +8,8 @@ import os, time, zipfile, sqlite3, json, requests
 authorization_base_url = 'https://www.bungie.net/en/OAuth/Authorize'
 token_url = 'https://www.bungie.net/Platform/App/OAuth/token/'
 baseApiUrl = 'https://www.bungie.net/Platform'
-apiKey = 'bc591fe5842e4d2cb6587063450536a7'
-credentials = {'client_id': '22228', 'client_secret': 'oT9bYs3FVaYPxJni-d6NvT4VLCU6g6dLljn6c7Y3oLo'}
+apiKey = os.environ.get('API_KEY')
+credentials = {'client_id': '22228', 'client_secret': os.environ.get('CLIENT_SECRET')}
 module_dir = os.path.dirname(__file__)
 platforms = {1: 'xbl', 2: 'psn', 4: 'pc'}
 
